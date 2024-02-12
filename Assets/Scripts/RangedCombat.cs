@@ -32,6 +32,11 @@ public class RangedCombat : MonoBehaviour
     {
         attackInterval = stats.attackSpeed / ((500 + stats.attackSpeed) * 0.01f);
 
-        // targetEnemy = moveScript.targetEnemy;
+        targetEnemy = moveScript.targetEnemy;
+
+        if(targetEnemy != null && performRangedAttack && Time.time > nextAttackTime)
+        {
+            // if()
+        }
     }
 }
