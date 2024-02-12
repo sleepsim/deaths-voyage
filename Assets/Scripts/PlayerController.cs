@@ -69,9 +69,28 @@ public class PlayerController : MonoBehaviour {
             {
                 if(Input.GetMouseButtonDown(0))
                 {
-                    targetEnemy = hit.collider.gameObject;
-                    hit.collider.gameObject.GetComponent<DisableOutline>().toggleOutline();   
-                    Debug.Log(targetEnemy);                 
+                    if(hit.collider.gameObject == targetEnemy)
+                    {   
+                        // Turn off outline and remove target
+                        targetEnemy = null;
+                        hit.collider.gameObject.GetComponent<DisableOutline>().toggleOutline(); 
+                    }
+                    else if(targetEnemy != null)
+                    {   
+                        // Turn off outline and remove old target
+                        targetEnemy.GetComponent<DisableOutline>().toggleOutline();
+                        targetEnemy = null;
+
+                        // Assign new target and outline
+                        targetEnemy = hit.collider.gameObject;
+                        hit.collider.gameObject.GetComponent<DisableOutline>().toggleOutline(); 
+                    }
+                    else
+                    {
+                        // Assign new target and outline
+                        targetEnemy = hit.collider.gameObject;
+                        hit.collider.gameObject.GetComponent<DisableOutline>().toggleOutline(); 
+                    }
                 }
             }
         }

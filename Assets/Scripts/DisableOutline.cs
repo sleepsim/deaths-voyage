@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class DisableOutline : MonoBehaviour
 {
-
-    private float delay = 0.01f;
     private Outline outline;
 
     // Start is called before the first frame update
