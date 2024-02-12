@@ -7,30 +7,31 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float _speed = 5;
     [SerializeField] private float _turnSpeed = 360;
     private Vector3 _input;
+    public Camera playerCamera;
+
 
     public GameObject targetEnemy;
     public float stoppingDistance;
-    public Camera playerCamera;
 
     private void Start()
     {
         playerCamera = Camera.main;
     }
 
-    private void Update() {
+    private void Update() 
+    {
         GatherInput();
         Look();
+        target();
     }
 
-    private void FixedUpdate() {
+    private void FixedUpdate() 
+    {
         Move();
     }
 
-    // private void GatherInput() {
-    //     _input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-    // }
-
-    private void GatherInput() {
+    private void GatherInput() 
+    {
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
 
@@ -42,27 +43,38 @@ public class PlayerController : MonoBehaviour {
         cameraForward.Normalize();
         cameraRight.Normalize();
 
-        // _input = Input.GetAxisRaw("Horizontal") * cameraRight + Input.GetAxisRaw("Vertical") * cameraForward;
-
         _input = horizontalInput * cameraRight + verticalInput * cameraForward;
     }
 
-    private void Look() {
-        // if (_input == Vector3.zero) return;
-
-        // var rot = Quaternion.LookRotation(_input.ToIso(), Vector3.up);
-        // transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, _turnSpeed * Time.deltaTime);
-
+    private void Look() 
+    {
         if(_input == Vector3.zero) return;
 
         Quaternion targetRotation = Quaternion.LookRotation(_input, Vector3.up);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _turnSpeed * Time.deltaTime);
     }
 
-    private void Move() {
-        // _rb.MovePosition(transform.position + transform.forward * _input.normalized.magnitude * _speed * Time.deltaTime);
-
+    private void Move() 
+    {
         _rb.MovePosition(transform.position + _input.normalized * _speed * Time.deltaTime);
+    }
+
+    public void target()
+    {
+        RaycastHit hit;
+    
+        if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
+        {
+            if(hit.collider.tag == "Enemy")
+            {
+                if(Input.GetMouseButtonDown(0))
+                {
+                    targetEnemy = hit.collider.gameObject;
+                    hit.collider.gameObject.GetComponent<DisableOutline>().toggleOutline();   
+                    Debug.Log(targetEnemy);                 
+                }
+            }
+        }
     }
 }
 

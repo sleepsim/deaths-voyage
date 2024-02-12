@@ -6,7 +6,7 @@ public class DisableOutline : MonoBehaviour
 {
 
     private float delay = 0.01f;
-    Outline outline;
+    private Outline outline;
 
     // Start is called before the first frame update
     void Start()
@@ -15,16 +15,21 @@ public class DisableOutline : MonoBehaviour
         outline.enabled = false;
     }
 
-    void OnMouseOver()
-    {   
-        if(Input.GetMouseButtonDown(0))
-        {
-            outline.enabled = !outline.enabled;
-        }
-    }
+    // void OnMouseOver()
+    // {   
+    //     if(Input.GetMouseButtonDown(0))
+    //     {
+    //         outline.enabled = !outline.enabled;
+    //     }
+    // }
 
-    public void OnMouseExit()
+    // public void OnMouseExit()
+    // {
+    //     // outline.enabled = false;
+    // }
+
+    public void toggleOutline()
     {
-        // outline.enabled = false;
+        outline.enabled = !outline.enabled;
     }
 }
