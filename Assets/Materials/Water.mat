@@ -43,9 +43,10 @@ Material:
     - _RippleDensity: 15
     - _RippleSlimness: 4
     - _RippleSpeed: 1
+    - _WaterTransparency: 0.8
     - _WaveSpeed: 0.1
     m_Colors:
-    - _BaseColour: {r: 0.26610893, g: 0.5673025, b: 0.8679245, a: 0}
+    - _BaseColour: {r: 0.25323075, g: 0.53997755, b: 0.823, a: 0}
     - _RippleColour: {r: 0.16084574, g: 0.75570107, b: 1.1378347, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &3595375208442753035
