@@ -101,10 +101,10 @@ public class PlayerController : MonoBehaviour {
 
         if(CheckDistance(targetEnemy))
         {
-            targetEnemy.GetComponent<EnemyController>().InRange(true);
+            targetEnemy.GetComponent<EnemyController>().SetOutlineGreen(true);
         }
         else{
-            targetEnemy.GetComponent<EnemyController>().InRange(false);
+            targetEnemy.GetComponent<EnemyController>().SetOutlineGreen(false);
         }
     }
 

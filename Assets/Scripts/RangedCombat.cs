@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 // [RequireComponent(typeof(PlayerController)), RequireComponent(typeof(Stats))]
@@ -61,7 +62,12 @@ public class RangedCombat : MonoBehaviour
 
         if(targetEnemy != null && performRangedAttack && Time.time > nextAttackTime && autoAttackToggle)
         {   
-            //Add an if statement here to test range
+            // If target is not in range, do not attack
+            if(playerCombat && !targetEnemy.GetComponent<EnemyController>().InRange())
+            {
+                return;
+            }
+   
             StartCoroutine(RangedAttackInterval());
         }
     }

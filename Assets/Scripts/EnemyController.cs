@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
     private Outline outline;
     public GameObject rangeIndicator;
     public GameObject targetEnemy;
+    private bool isInRange;
 
     // Start is called before the first frame update
     void Start()
@@ -63,15 +64,22 @@ public class EnemyController : MonoBehaviour
     }
 
     // If in player attack range, change outline color
-    public void InRange(bool b)
+    public void SetOutlineGreen(bool b)
     {   
         if(b)
         {
             outline.OutlineColor = Color.green;
+            isInRange = true;
         }
         else
         {
             outline.OutlineColor = Color.red;
+            isInRange = false;
         }
+    }
+
+    public bool InRange()
+    {
+        return isInRange;
     }
 }
