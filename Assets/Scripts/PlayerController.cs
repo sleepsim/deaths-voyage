@@ -77,30 +77,42 @@ public class PlayerController : MonoBehaviour {
                     {   
                         // Turn off outline and remove target
                         targetEnemy = null;
-                        hit.collider.gameObject.GetComponent<DisableOutline>().toggleOutline(); 
+                        hit.collider.gameObject.GetComponent<EnemyController>().toggleOutline(); 
                     }
-                    else if(targetEnemy != null)
+                    else if(targetEnemy != null && hit.collider.gameObject != targetEnemy)
                     {   
                         // Turn off outline and remove old target
-                        targetEnemy.GetComponent<DisableOutline>().toggleOutline();
+                        targetEnemy.GetComponent<EnemyController>().toggleOutline();
                         targetEnemy = null;
 
                         // Assign new target and outline
                         targetEnemy = hit.collider.gameObject;
-                        hit.collider.gameObject.GetComponent<DisableOutline>().toggleOutline(); 
+                        hit.collider.gameObject.GetComponent<EnemyController>().toggleOutline(); 
                     }
                     else
                     {
                         // Assign new target and outline
                         targetEnemy = hit.collider.gameObject;
-                        hit.collider.gameObject.GetComponent<DisableOutline>().toggleOutline(); 
+                        hit.collider.gameObject.GetComponent<EnemyController>().toggleOutline(); 
                     }
                 }
             }
         }
+
+        if(CheckDistance(targetEnemy))
+        {
+            targetEnemy.GetComponent<EnemyController>().InRange(true);
+        }
+        else{
+            targetEnemy.GetComponent<EnemyController>().InRange(false);
+        }
     }
 
-    // Checking for AOE circles
+    // Check distance between player and targeted enemy
+    public bool CheckDistance(GameObject other)
+    {
+        return Vector3.Distance(other.transform.position, transform.position) <= GetComponent<Stats>().range;
+    }
 }
 
 public static class Helpers 
