@@ -19,6 +19,9 @@ public class HealthBar : MonoBehaviour
         maxHealth = player.GetComponent<Stats>().maxHealth;
         health = player.GetComponent<Stats>().health;
 
+        healthSlider.maxValue = maxHealth;
+        easeHealthSlider.maxValue = maxHealth;
+
         Debug.Log(maxHealth);
     }
 
