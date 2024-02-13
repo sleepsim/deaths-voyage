@@ -16,6 +16,7 @@ public class RangedCombat : MonoBehaviour
 
     [Header("Ranged Attack Variables")]
     public bool performRangedAttack = true;
+    public bool autoAttackToggle = false;
     private float attackInterval;
     private float nextAttackTime = 0;
 
@@ -38,7 +39,7 @@ public class RangedCombat : MonoBehaviour
 
         targetEnemy = moveScript.targetEnemy;
 
-        if(targetEnemy != null && performRangedAttack && Time.time > nextAttackTime)
+        if(targetEnemy != null && performRangedAttack && Time.time > nextAttackTime && autoAttackToggle)
         {   
             //Add an if statement here to test range
             StartCoroutine(RangedAttackInterval());
@@ -48,7 +49,9 @@ public class RangedCombat : MonoBehaviour
     private IEnumerator RangedAttackInterval()
     {
         performRangedAttack = false;
+
         RangedAttack();
+
         yield return new WaitForSeconds(attackInterval);
 
         if(targetEnemy == null)

@@ -62,11 +62,13 @@ public class PlayerController : MonoBehaviour {
 
     // Targeting and combat
     public void Target()
-    {
+    {   
+        // Checking for mouse clicks seen by camera
         RaycastHit hit;
     
         if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
         {
+            // Check if gameobject is enemy
             if(hit.collider.tag == "Enemy")
             {
                 if(Input.GetMouseButtonDown(0))
@@ -97,6 +99,8 @@ public class PlayerController : MonoBehaviour {
             }
         }
     }
+
+    // Checking for AOE circles
 }
 
 public static class Helpers 
