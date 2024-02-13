@@ -17,6 +17,9 @@ public class HealthBarEnemy : MonoBehaviour
     {
         maxHealth = transform.root.GetComponent<Stats>().maxHealth;
         health = transform.root.GetComponentInParent<Stats>().health;
+
+        healthSlider.maxValue = maxHealth;
+        easeHealthSlider.maxValue = maxHealth;
     }
 
     // Update is called once per frame
@@ -29,19 +32,9 @@ public class HealthBarEnemy : MonoBehaviour
             healthSlider.value = health;
         }
 
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            takeDamage(10);
-        }
-
         if(healthSlider.value != easeHealthSlider.value)
         {
             easeHealthSlider.value = Mathf.Lerp(easeHealthSlider.value, health, lerpSpeed);
         }
-    }
-
-    void takeDamage(float damage)
-    {
-        health -= damage;
     }
 }

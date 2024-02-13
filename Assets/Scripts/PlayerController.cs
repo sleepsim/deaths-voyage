@@ -99,12 +99,15 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        if(CheckDistance(targetEnemy))
+        if(targetEnemy != null)
         {
-            targetEnemy.GetComponent<EnemyController>().SetOutlineGreen(true);
-        }
-        else{
-            targetEnemy.GetComponent<EnemyController>().SetOutlineGreen(false);
+            if(CheckDistance(targetEnemy))
+            {
+                targetEnemy.GetComponent<EnemyController>().SetOutlineGreen(true);
+            }
+            else{
+                targetEnemy.GetComponent<EnemyController>().SetOutlineGreen(false);
+            }
         }
     }
 
