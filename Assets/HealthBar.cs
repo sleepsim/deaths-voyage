@@ -7,19 +7,26 @@ public class HealthBar : MonoBehaviour
 {
     public Slider healthSlider;
     public Slider easeHealthSlider;
-    public float maxHealth = 100f;
+    public float maxHealth;
     public float health;
     private float lerpSpeed = 0.02f;
+
+    public GameObject player;
 
     // Start is called before the first frame update
     void Start()
     {
-        health = maxHealth;
+        maxHealth = player.GetComponent<Stats>().maxHealth;
+        health = player.GetComponent<Stats>().health;
+
+        Debug.Log(maxHealth);
     }
 
     // Update is called once per frame
     void Update()
     {
+        health = player.GetComponent<Stats>().health;
+
         if(healthSlider.value != health)
         {
             healthSlider.value = health;
@@ -38,6 +45,6 @@ public class HealthBar : MonoBehaviour
 
     void takeDamage(float damage)
     {
-        health -= damage;
+        player.GetComponent<Stats>().health -= damage;
     }
 }
