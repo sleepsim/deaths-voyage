@@ -51,6 +51,7 @@ public class TargetEnemy : MonoBehaviour
             // Null Propogation is not recommended
             if(targetStats != null)
             {
+                Debug.Log("Dealing " + playerStats.damage + "To HP: " + targetStats.health);
                 targetStats.TakeDamage(target.gameObject, playerStats.damage);
             }
             Destroy(gameObject);

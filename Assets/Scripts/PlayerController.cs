@@ -20,13 +20,13 @@ public class PlayerController : MonoBehaviour {
 
     private void Update() 
     {
-        GatherInput();
         Look();
-        target();
+        Target();
     }
 
     private void FixedUpdate() 
     {
+        GatherInput();
         Move();
     }
 
@@ -59,12 +59,16 @@ public class PlayerController : MonoBehaviour {
         _rb.MovePosition(transform.position + _input.normalized * _speed * Time.deltaTime);
     }
 
-    public void target()
-    {
+
+    // Targeting and combat
+    public void Target()
+    {   
+        // Checking for mouse clicks seen by camera
         RaycastHit hit;
     
         if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
         {
+            // Check if gameobject is enemy
             if(hit.collider.tag == "Enemy")
             {
                 if(Input.GetMouseButtonDown(0))
@@ -73,27 +77,41 @@ public class PlayerController : MonoBehaviour {
                     {   
                         // Turn off outline and remove target
                         targetEnemy = null;
-                        hit.collider.gameObject.GetComponent<DisableOutline>().toggleOutline(); 
+                        hit.collider.gameObject.GetComponent<EnemyController>().toggleOutline(); 
                     }
-                    else if(targetEnemy != null)
+                    else if(targetEnemy != null && hit.collider.gameObject != targetEnemy)
                     {   
                         // Turn off outline and remove old target
-                        targetEnemy.GetComponent<DisableOutline>().toggleOutline();
+                        targetEnemy.GetComponent<EnemyController>().toggleOutline();
                         targetEnemy = null;
 
                         // Assign new target and outline
                         targetEnemy = hit.collider.gameObject;
-                        hit.collider.gameObject.GetComponent<DisableOutline>().toggleOutline(); 
+                        hit.collider.gameObject.GetComponent<EnemyController>().toggleOutline(); 
                     }
                     else
                     {
                         // Assign new target and outline
                         targetEnemy = hit.collider.gameObject;
-                        hit.collider.gameObject.GetComponent<DisableOutline>().toggleOutline(); 
+                        hit.collider.gameObject.GetComponent<EnemyController>().toggleOutline(); 
                     }
                 }
             }
         }
+
+        if(CheckDistance(targetEnemy))
+        {
+            targetEnemy.GetComponent<EnemyController>().SetOutlineGreen(true);
+        }
+        else{
+            targetEnemy.GetComponent<EnemyController>().SetOutlineGreen(false);
+        }
+    }
+
+    // Check distance between player and targeted enemy
+    public bool CheckDistance(GameObject other)
+    {
+        return Vector3.Distance(other.transform.position, transform.position) <= GetComponent<Stats>().range;
     }
 }
 

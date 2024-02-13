@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 // [RequireComponent(typeof(PlayerController)), RequireComponent(typeof(Stats))]
@@ -9,6 +10,8 @@ using UnityEngine;
 public class RangedCombat : MonoBehaviour
 {
     private PlayerController moveScript;
+    private EnemyController enemyCont;
+    private bool playerCombat;
     private Stats stats;
 
     [Header("Target")]
@@ -16,6 +19,7 @@ public class RangedCombat : MonoBehaviour
 
     [Header("Ranged Attack Variables")]
     public bool performRangedAttack = true;
+    public bool autoAttackToggle = false;
     private float attackInterval;
     private float nextAttackTime = 0;
 
@@ -27,7 +31,18 @@ public class RangedCombat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        moveScript = GetComponent<PlayerController>();
+        // If used for player targeting
+        if(transform.CompareTag("Player"))
+        {
+            moveScript = GetComponent<PlayerController>();
+            playerCombat = true;
+        }
+        // If used for enemy targeting
+        else if(transform.CompareTag("Enemy"))
+        {
+            enemyCont = GetComponent<EnemyController>();
+            playerCombat = false;
+        }
         stats = GetComponent<Stats>();
     }
 
@@ -36,11 +51,23 @@ public class RangedCombat : MonoBehaviour
     {
         attackInterval = stats.attackSpeed / ((500 + stats.attackSpeed) * 0.01f);
 
-        targetEnemy = moveScript.targetEnemy;
+        if(playerCombat)
+        {
+            targetEnemy = moveScript.targetEnemy;
+        }
+        else
+        {
+            targetEnemy = enemyCont.targetEnemy;
+        }
 
-        if(targetEnemy != null && performRangedAttack && Time.time > nextAttackTime)
+        if(targetEnemy != null && performRangedAttack && Time.time > nextAttackTime && autoAttackToggle)
         {   
-            //Add an if statement here to test range
+            // If target is not in range, do not attack
+            if(playerCombat && !targetEnemy.GetComponent<EnemyController>().InRange())
+            {
+                return;
+            }
+   
             StartCoroutine(RangedAttackInterval());
         }
     }
@@ -48,7 +75,9 @@ public class RangedCombat : MonoBehaviour
     private IEnumerator RangedAttackInterval()
     {
         performRangedAttack = false;
+
         RangedAttack();
+
         yield return new WaitForSeconds(attackInterval);
 
         if(targetEnemy == null)
