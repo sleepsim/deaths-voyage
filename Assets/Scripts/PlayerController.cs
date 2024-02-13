@@ -20,13 +20,13 @@ public class PlayerController : MonoBehaviour {
 
     private void Update() 
     {
-        GatherInput();
         Look();
-        target();
+        Target();
     }
 
     private void FixedUpdate() 
     {
+        GatherInput();
         Move();
     }
 
@@ -59,7 +59,9 @@ public class PlayerController : MonoBehaviour {
         _rb.MovePosition(transform.position + _input.normalized * _speed * Time.deltaTime);
     }
 
-    public void target()
+
+    // Targeting and combat
+    public void Target()
     {
         RaycastHit hit;
     
