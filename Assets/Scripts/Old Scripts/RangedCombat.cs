@@ -32,13 +32,13 @@ public class RangedCombat : MonoBehaviour
     void Start()
     {
         // If used for player targeting
-        if(transform.CompareTag("Player"))
+        if (transform.CompareTag("Player"))
         {
             moveScript = GetComponent<PlayerController>();
             playerCombat = true;
         }
         // If used for enemy targeting
-        else if(transform.CompareTag("Enemy"))
+        else if (transform.CompareTag("Enemy"))
         {
             enemyCont = GetComponent<EnemyController>();
             playerCombat = false;
@@ -51,7 +51,7 @@ public class RangedCombat : MonoBehaviour
     {
         attackInterval = stats.attackSpeed / ((500 + stats.attackSpeed) * 0.01f);
 
-        if(playerCombat)
+        if (playerCombat)
         {
             targetEnemy = moveScript.targetEnemy;
         }
@@ -60,16 +60,20 @@ public class RangedCombat : MonoBehaviour
             targetEnemy = enemyCont.targetEnemy;
         }
 
-        if(targetEnemy != null && performRangedAttack && Time.time > nextAttackTime && autoAttackToggle)
-        {   
-            // If target is not in range, do not attack
-            if(playerCombat && !targetEnemy.GetComponent<EnemyController>().InRange())
-            {
-                return;
-            }
-   
-            StartCoroutine(RangedAttackInterval());
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     if (targetEnemy != null && performRangedAttack && Time.time > nextAttackTime && autoAttackToggle)
+        //     {
+        //         // If target is not in range, do not attack
+        //         if (playerCombat && !targetEnemy.GetComponent<EnemyController>().InRange())
+        //         {
+        //             return;
+        //         }
+
+        //         StartCoroutine(RangedAttackInterval());
+        //     }
+        // }
+
     }
 
     private IEnumerator RangedAttackInterval()
@@ -80,23 +84,36 @@ public class RangedCombat : MonoBehaviour
 
         yield return new WaitForSeconds(attackInterval);
 
-        if(targetEnemy == null)
+        if (targetEnemy == null)
         {
             performRangedAttack = true;
         }
     }
 
+    // Old homing code
+    // private void RangedAttack()
+    // {
+    //     spawnedProjectile = Instantiate(attackProjectile, attackSpawnPoint.transform.position, attackSpawnPoint.transform.rotation);
+
+    //     TargetEnemy targetEnemyScript = spawnedProjectile.GetComponent<TargetEnemy>();
+
+    //     if (targetEnemyScript != null)
+    //     {
+    //         targetEnemyScript.SetTarget(targetEnemy.transform);
+    //     }
+
+    //     nextAttackTime = Time.time + attackInterval;
+    //     performRangedAttack = true;
+    // }
+
     private void RangedAttack()
     {
-        spawnedProjectile = Instantiate(attackProjectile, attackSpawnPoint.transform.position, attackSpawnPoint.transform.rotation);
+        // Instantiate the projectile at the attack spawn point with its current rotation
+        spawnedProjectile = Instantiate(attackProjectile, attackSpawnPoint.position, attackSpawnPoint.rotation);
 
         TargetEnemy targetEnemyScript = spawnedProjectile.GetComponent<TargetEnemy>();
 
-        if(targetEnemyScript != null)
-        {
-            targetEnemyScript.SetTarget(targetEnemy.transform);
-        }
-
+        // Set the next attack time and toggle the ranged attack flag
         nextAttackTime = Time.time + attackInterval;
         performRangedAttack = true;
     }

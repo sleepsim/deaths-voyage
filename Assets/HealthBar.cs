@@ -30,17 +30,18 @@ public class HealthBar : MonoBehaviour
     {
         health = player.GetComponent<Stats>().health;
 
-        if(healthSlider.value != health)
+        if (healthSlider.value != health)
         {
             healthSlider.value = health;
         }
 
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            takeDamage(10);
-        }
+        // For debugging
+        // if(Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     takeDamage(10);
+        // }
 
-        if(healthSlider.value != easeHealthSlider.value)
+        if (healthSlider.value != easeHealthSlider.value)
         {
             easeHealthSlider.value = Mathf.Lerp(easeHealthSlider.value, health, lerpSpeed);
         }

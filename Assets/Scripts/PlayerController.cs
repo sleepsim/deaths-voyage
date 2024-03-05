@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (verticalInput != 0)
+        if (verticalInput > 0)
         {
             // Get input relative to the boat's forward direction
             Vector3 boatForward = transform.forward;

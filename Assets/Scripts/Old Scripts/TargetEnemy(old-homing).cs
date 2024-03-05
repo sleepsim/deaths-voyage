@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
-public class TargetEnemy : MonoBehaviour
+public class TargetEnemyOld : MonoBehaviour
 {
     private Transform target;
     private Transform originalTarget;
@@ -25,18 +25,18 @@ public class TargetEnemy : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {   
-        if(target != null)
+    {
+        if (target != null)
         {
             Vector3 direction = target.position - transform.position;
-            if(initialShot)
+            if (initialShot)
             {
                 rb.velocity = direction.normalized * projectileSpeed;
                 counter += 1;
 
                 Debug.Log(rb.velocity);
 
-                if(counter == 130)
+                if (counter == 130)
                 {
                     initialShot = false;
                 }
@@ -49,7 +49,7 @@ public class TargetEnemy : MonoBehaviour
         else if (originalTarget != null)
         {
             Vector3 direction = target.position - transform.position;
-            if(initialShot)
+            if (initialShot)
             {
                 rb.velocity = direction.normalized * projectileSpeed;
                 initialShot = false;
@@ -72,22 +72,22 @@ public class TargetEnemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(target != null && ReferenceEquals(other.gameObject, target.gameObject))
+        if (target != null && ReferenceEquals(other.gameObject, target.gameObject))
         {
             Stats targetStats = target.gameObject.GetComponent<Stats>();
             // Null Propogation is not recommended
-            if(targetStats != null)
+            if (targetStats != null)
             {
                 Debug.Log("Dealing " + playerStats.damage + "To HP: " + targetStats.health);
                 targetStats.TakeDamage(target.gameObject, playerStats.damage);
             }
             Destroy(gameObject);
         }
-        else if(originalTarget != null && ReferenceEquals(other.gameObject, originalTarget.gameObject))
+        else if (originalTarget != null && ReferenceEquals(other.gameObject, originalTarget.gameObject))
         {
             Stats originalTargetStats = originalTarget.gameObject.GetComponent<Stats>();
             // Null Propogation is not recommended
-            if(originalTargetStats != null)
+            if (originalTargetStats != null)
             {
                 originalTargetStats.TakeDamage(target.gameObject, playerStats.damage);
             }

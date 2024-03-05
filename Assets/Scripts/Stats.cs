@@ -9,16 +9,18 @@ public class Stats : MonoBehaviour
     public float damage;
     public float attackSpeed;
     public float range;
+    public int projectileNumber;
 
     void Start()
     {
         health = maxHealth;
     }
-    
-    public void TakeDamage(GameObject target, float damage){
+
+    public void TakeDamage(GameObject target, float damage)
+    {
         target.GetComponent<Stats>().health -= damage;
 
-        if(target.GetComponent<Stats>().health <= 0)
+        if (target.GetComponent<Stats>().health <= 0)
         {
             Destroy(target.gameObject);
         }
