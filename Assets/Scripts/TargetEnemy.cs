@@ -11,6 +11,10 @@ public class TargetEnemy : MonoBehaviour
     private Stats playerStats;
     public float projectileSpeed;
 
+    public bool initialShot = true;
+    public Vector3 standard = new Vector3(0f, 0f, 0f);
+    public int counter = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,12 +29,35 @@ public class TargetEnemy : MonoBehaviour
         if(target != null)
         {
             Vector3 direction = target.position - transform.position;
-            rb.velocity = direction.normalized * projectileSpeed;
+            if(initialShot)
+            {
+                rb.velocity = direction.normalized * projectileSpeed;
+                counter += 1;
+
+                Debug.Log(rb.velocity);
+
+                if(counter == 130)
+                {
+                    initialShot = false;
+                }
+            }
+            else
+            {
+                // rb.velocity = standard * projectileSpeed;
+            }
         }
         else if (originalTarget != null)
         {
-            Vector3 direction = originalTarget.position - transform.position;
-            rb.velocity = direction.normalized * projectileSpeed;
+            Vector3 direction = target.position - transform.position;
+            if(initialShot)
+            {
+                rb.velocity = direction.normalized * projectileSpeed;
+                initialShot = false;
+            }
+            else
+            {
+                rb.velocity = standard * projectileSpeed;
+            }
         }
         else
         {

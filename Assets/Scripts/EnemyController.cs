@@ -49,7 +49,7 @@ public class EnemyController : MonoBehaviour
             rangeIndicator.SetActive(true);
             rangeIndicator.transform.position = transform.root.position;
             // rangeIndicator.transform.Rotate(0, -90, 0);
-            rangeIndicator.transform.localScale = new Vector3(225, 10, 450);
+            rangeIndicator.transform.localScale = new Vector3(200, 10, 400);
         }
         else
         {
