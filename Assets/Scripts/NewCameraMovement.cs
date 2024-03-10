@@ -23,10 +23,12 @@ public class NewCameraMovement : MonoBehaviour
         if (Input.GetMouseButton(1)) // Check if right mouse button is clicked
         {
             allowRotation = true; // Enable rotation
+            Cursor.visible = false;
         }
         else
         {
             allowRotation = false; // Disable rotation
+            Cursor.visible = true;
         }
 
         if (allowRotation)
