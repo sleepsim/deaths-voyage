@@ -11,9 +11,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 _input;
     public Camera playerCamera;
 
+    private bool isMoving;
 
     public GameObject targetEnemy;
     public float stoppingDistance;
+    private float decelRate = 0.5f;
 
     private void Start()
     {
@@ -73,11 +75,14 @@ public class PlayerController : MonoBehaviour
 
             // Calculate the input direction based on boat's orientation
             _input = adjustedHorizontalInput * boatRight + verticalInput * boatForward;
+
+            isMoving = true;
         }
         else
         {
             // If no forward/backward movement, set input to zero
             _input = Vector3.zero;
+            isMoving = false;
         }
     }
 
@@ -91,7 +96,16 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        _rb.MovePosition(transform.position + _input.normalized * _speed * Time.deltaTime);
+        while (isMoving)
+        {
+            // _rb.AddForce(transform.position + _input.normalized * _speed * Time.deltaTime);
+            Debug.Log(transform.position + _input.normalized);
+
+            _rb.velocity = transform.position + _input.normalized * _speed * Time.deltaTime;
+
+        }
+
+
     }
 
 
