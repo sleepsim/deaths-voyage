@@ -8,14 +8,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _speed = 5;
     [SerializeField] private float _turnSpeed = 45;
     [SerializeField] private float _rotationSpeed = 0.2f;
+    [SerializeField] private float _acceleration = 1f;
     private Vector3 _input;
     public Camera playerCamera;
 
     private bool isMoving;
 
     public GameObject targetEnemy;
-    public float stoppingDistance;
-    private float decelRate = 0.5f;
+
 
     private void Start()
     {
@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        Look();
+        // Look();
         Target();
     }
 
@@ -86,26 +86,45 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Look()
-    {
-        if (_input == Vector3.zero) return;
+    // private void Look()
+    // {
+    //     if (_input == Vector3.zero) return;
 
-        Quaternion targetRotation = Quaternion.LookRotation(_input, Vector3.up);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _turnSpeed * Time.deltaTime);
-    }
+    //     Quaternion targetRotation = Quaternion.LookRotation(_input, Vector3.up);
+    //     transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _turnSpeed * Time.deltaTime);
+    // }
+
+    // private void Move()
+    // {
+    // while (isMoving)
+    // {
+    //     // _rb.AddForce(transform.position + _input.normalized * _speed * Time.deltaTime);
+    //     Debug.Log("");
+
+    //     _rb.velocity = transform.position + _input.normalized * _speed * Time.deltaTime;
+
+    // }
+    // 
+    // 
+    // }
 
     private void Move()
     {
-        while (isMoving)
+        if (isMoving)
         {
-            // _rb.AddForce(transform.position + _input.normalized * _speed * Time.deltaTime);
-            Debug.Log(transform.position + _input.normalized);
+            Vector3 targetVelocity = _input.normalized * _speed;
+            Vector3 currentVelocity = _rb.velocity;
+            Vector3 velocityDifference = targetVelocity - currentVelocity;
 
-            _rb.velocity = transform.position + _input.normalized * _speed * Time.deltaTime;
+            // Apply force based on the difference between target and current velocity
+            _rb.AddForce(velocityDifference * _acceleration, ForceMode.Acceleration);
 
+            // Clamp the velocity to the maximum speed
+            if (_rb.velocity.magnitude > _speed)
+            {
+                _rb.velocity = _rb.velocity.normalized * _speed;
+            }
         }
-
-
     }
 
 
