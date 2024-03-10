@@ -5,14 +5,21 @@ using UnityEngine;
 public class NewMovement : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rb;
-    [SerializeField] private float _rotationSpeed = 0.2f;
-    [SerializeField] private float _turnSpeed = 45;
+    [SerializeField] private float _rotationSpeed = 0.2f; //Actual turning speed
+    [SerializeField] private float _turnSpeed = 45; //For model rotation
     [SerializeField] private float _speed = 5;
-    [SerializeField] private float _acceleration = 2f; // Adjust this value for acceleration
-    [SerializeField] private float _deceleration = 2f;
+    [SerializeField] private float _acceleration = 2f; // accel
+    [SerializeField] private float _deceleration = 2f; // decel
+    [SerializeField] private float _dashSpeed = 10; // Speed for dashing
+    [SerializeField] private float _dashDuration = 0.5f; // Duration of the dash
+    [SerializeField] private float _dashCooldown = 2f; // cd
     private Vector3 _input;
-    private Vector3 _currentVelocity;
+    public Vector3 _currentVelocity;
     private bool isMoving;
+    public bool isDashing;
+    public float dashTimer;
+    public float dashCooldownTimer;
+
 
 
 
@@ -24,6 +31,11 @@ public class NewMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Check if Dash button pressed, and not under cooldown
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing && dashCooldownTimer <= 0)
+        {
+            StartDash();
+        }
         Look();
     }
 
@@ -31,6 +43,39 @@ public class NewMovement : MonoBehaviour
     {
         GatherInput();
         Move();
+        UpdateDash();
+    }
+
+    private void StartDash()
+    {
+        isDashing = true;
+        dashTimer = _dashDuration;
+        dashCooldownTimer = _dashCooldown;
+
+        // Apply a sudden burst of speed in the current direction
+        _currentVelocity = transform.forward * _dashSpeed;
+    }
+
+    private void UpdateDash()
+    {
+        if (isDashing)
+        {
+            dashTimer -= Time.deltaTime;
+            if (dashTimer <= 0)
+            {
+                // End dash
+                isDashing = false;
+                // Apply deceleration after dash ends
+                _currentVelocity = Vector3.MoveTowards(_currentVelocity, Vector3.zero, _deceleration * Time.deltaTime);
+            }
+        }
+        else
+        {
+            if (dashCooldownTimer > 0)
+            {
+                dashCooldownTimer -= Time.deltaTime;
+            }
+        }
     }
 
     private void Look()
@@ -73,25 +118,22 @@ public class NewMovement : MonoBehaviour
 
     private void Move()
     {
-        if (isMoving)
+        if (isMoving && !isDashing)
         {
             // Calculate target velocity based on input and speed
             Vector3 targetVelocity = _input.normalized * _speed;
 
             // Apply acceleration
             _currentVelocity = Vector3.MoveTowards(_currentVelocity, targetVelocity, _acceleration * Time.deltaTime);
-
-            // Move the rigidbody
-            _rb.MovePosition(transform.position + _currentVelocity * Time.deltaTime);
         }
-        else
+        else if (!isDashing)
         {
             // If not moving, apply deceleration
             _currentVelocity = Vector3.MoveTowards(_currentVelocity, Vector3.zero, _deceleration * Time.deltaTime);
-
-            // Move the rigidbody
-            _rb.MovePosition(transform.position + _currentVelocity * Time.deltaTime);
         }
+
+        // Move the rigidbody
+        _rb.MovePosition(transform.position + _currentVelocity * Time.deltaTime);
     }
 }
 
