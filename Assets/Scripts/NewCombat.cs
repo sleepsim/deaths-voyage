@@ -9,6 +9,7 @@ public class NewCombat : MonoBehaviour
     public float launchSpeed = 50f;
     public float rOffset = 1f;
     public float yOffset = 1f;
+    public float upwardAngle = 30f;
     private Stats playerStats;
     private int projectileNumber;
 
@@ -29,42 +30,40 @@ public class NewCombat : MonoBehaviour
 
     private void FireProjectile()
     {
-        Vector3 rightLaunchPosition = launchPoint.position + launchPoint.right * rOffset + Vector3.up * yOffset;
+        // Calculate left and right launch positions
+        // Vector3 leftLaunchPosition = launchPoint.position - launchPoint.right * rOffset;
         Vector3 leftLaunchPosition = launchPoint.position - launchPoint.right * rOffset + Vector3.up * yOffset;
-        // Instantiate the projectile at the launch point position and rotation
+        Vector3 rightLaunchPosition = launchPoint.position + launchPoint.right * rOffset + Vector3.up * yOffset;
 
+        Vector3 upwardDirection = new Vector3(0, upwardAngle, 0);
+        Debug.Log(upwardDirection);
+
+
+        // Instantiate the projectile at the launch point position and rotation
         for (int i = 0; i < projectileNumber; i++)
         {
             // Instantiate left and right projectiles
             GameObject leftProjectile = Instantiate(projectilePrefab, leftLaunchPosition, launchPoint.rotation);
             GameObject rightProjectile = Instantiate(projectilePrefab, rightLaunchPosition, launchPoint.rotation);
 
-            // Access the Projectile script component of the newly instantiated projectile
-            Projectile leftProjectileScript = leftProjectile.GetComponent<Projectile>();
-            Projectile rightProjectileScript = rightProjectile.GetComponent<Projectile>();
+            // Access the Rigidbody component of the newly instantiated projectiles
+            Rigidbody leftRigidbody = leftProjectile.GetComponent<Rigidbody>();
+            Rigidbody rightRigidbody = rightProjectile.GetComponent<Rigidbody>();
 
-            // Shoot the left projectile
-            if (leftProjectileScript != null)
+            // Shoot the projectiles upwards before falling
+            if (leftRigidbody != null && rightRigidbody != null)
             {
-                // Set the speed of the projectile using the launch speed variable
-                leftProjectileScript.FireProjectile(launchSpeed, "left");
+                // Calculate the initial velocity including the upward component
+                Vector3 leftInitialVelocity = (-launchPoint.right + upwardDirection).normalized * launchSpeed;
+                Vector3 rightInitialVelocity = (launchPoint.right + upwardDirection).normalized * launchSpeed;
+
+                leftRigidbody.velocity = leftInitialVelocity;
+                rightRigidbody.velocity = rightInitialVelocity;
             }
             else
             {
-                Debug.LogWarning("Projectile script not found!");
-            }
-
-            // Shoot the right projectile
-            if (rightProjectileScript != null)
-            {
-                // Set the speed of the projectile using the launch speed variable
-                rightProjectileScript.FireProjectile(launchSpeed, "right");
-            }
-            else
-            {
-                Debug.LogWarning("Projectile script not found!");
+                Debug.LogWarning("Rigidbody component not found!");
             }
         }
-
     }
 }
