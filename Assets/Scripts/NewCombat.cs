@@ -36,8 +36,6 @@ public class NewCombat : MonoBehaviour
         Vector3 rightLaunchPosition = launchPoint.position + launchPoint.right * rOffset + Vector3.up * yOffset;
 
         Vector3 upwardDirection = new Vector3(0, upwardAngle, 0);
-        Debug.Log(upwardDirection);
-
 
         // Instantiate the projectile at the launch point position and rotation
         for (int i = 0; i < projectileNumber; i++)

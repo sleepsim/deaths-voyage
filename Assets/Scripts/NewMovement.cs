@@ -5,9 +5,9 @@ using UnityEngine;
 public class NewMovement : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rb;
-    [SerializeField] private float _rotationSpeed = 0.2f; //Actual turning speed
-    [SerializeField] private float _turnSpeed = 45; //For model rotation
-    [SerializeField] private float _speed = 5;
+    [SerializeField] private float _rotationSpeed = 1f; //Actual turning speed
+    [SerializeField] private float _turnSpeed = 20; //For model rotation
+    [SerializeField] private float _speed = 7;
     [SerializeField] private float _acceleration = 2f; // accel
     [SerializeField] private float _deceleration = 2f; // decel
     [SerializeField] private float _dashSpeed = 10; // Speed for dashing
@@ -91,7 +91,7 @@ public class NewMovement : MonoBehaviour
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (verticalInput > 0)
+        if (verticalInput != 0)
         {
             // Get input relative to the boat's forward direction
             Vector3 boatForward = transform.forward;
