@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyCombat : MonoBehaviour
 {
+    // Movement
     public NavMeshAgent agent;
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
@@ -15,10 +16,15 @@ public class EnemyCombat : MonoBehaviour
     // Attacks
     public float timeBetweenAttacks;
     bool alreadyAttacked;
+    public GameObject projectilePrefab;
+    public float projectileSpeed;
+    public Transform launchPoint;
+    public float upwardsOffset;
 
     //States
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
+    public float rotationSpeed;
 
     private void Awake()
     {
@@ -32,7 +38,16 @@ public class EnemyCombat : MonoBehaviour
         if (walkPointSet)
         {
             agent.SetDestination(walkPoint);
+
+            Vector3 direction = walkPoint - transform.position;
+
+            // Create a rotation towards the walk point
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+            // Smoothly interpolate between the current rotation and the target rotation
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
+
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
         if (distanceToWalkPoint.magnitude < 1f)
@@ -59,12 +74,27 @@ public class EnemyCombat : MonoBehaviour
     private void AttackPlayer()
     {
         agent.SetDestination(transform.position);
-        transform.LookAt(player);
+        // transform.LookAt(player);
+
+        Vector3 direction = player.position - transform.position;
+        // Quaternion targetRotation = Quaternion.LookRotation(direction);
+        // transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
         if (!alreadyAttacked)
         {
+            Vector3 directionWithUpwardsOffset = direction + Vector3.up * upwardsOffset;
             //Attack code here
+            GameObject projectile = Instantiate(projectilePrefab, launchPoint.position, launchPoint.rotation);
 
+            Rigidbody projectileRigidbody = projectile.GetComponent<Rigidbody>();
+            if (projectileRigidbody != null)
+            {
+                // projectileRigidbody.velocity = direction.normalized * projectileSpeed;
+                projectileRigidbody.velocity = directionWithUpwardsOffset.normalized * projectileSpeed;
+            }
+
+            // Set the attacker to ignore collisions with the projectile
+            Physics.IgnoreCollision(GetComponent<Collider>(), projectile.GetComponent<Collider>());
 
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);

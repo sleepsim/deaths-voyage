@@ -12,19 +12,19 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        outline = GetComponent<Outline>();    
+        outline = GetComponent<Outline>();
         outline.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(rangeIndicator.activeSelf)
+        if (rangeIndicator.activeSelf)
         {
             rangeIndicator.transform.position = transform.root.position;
         }
 
-        if(CheckDistance(targetEnemy))
+        if (CheckDistance(targetEnemy))
         {
             GetComponent<RangedCombat>().autoAttackToggle = true;
         }
@@ -44,7 +44,7 @@ public class EnemyController : MonoBehaviour
     // Show Enemy Range indicator
     private void toggleRangeIndicator()
     {
-        if(outline.enabled)
+        if (outline.enabled)
         {
             rangeIndicator.SetActive(true);
             rangeIndicator.transform.position = transform.root.position;
@@ -60,13 +60,13 @@ public class EnemyController : MonoBehaviour
     // Check Distance between player and this object
     public bool CheckDistance(GameObject other)
     {
-        return Vector3.Distance(other.transform.position, transform.position) <= 10 ;
+        return Vector3.Distance(other.transform.position, transform.position) <= 10;
     }
 
     // If in player attack range, change outline color
     public void SetOutlineGreen(bool b)
-    {   
-        if(b)
+    {
+        if (b)
         {
             outline.OutlineColor = Color.green;
             isInRange = true;
