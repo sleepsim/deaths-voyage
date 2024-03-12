@@ -133,17 +133,17 @@ public class EnemyCombat : MonoBehaviour
 
         if (!playerInSightRange && !playerInAttackRange)
         {
-            Debug.Log("On Patrol");
+            // Debug.Log("On Patrol");
             Patrol();
         }
         if (playerInSightRange && !playerInAttackRange)
         {
-            Debug.Log("Chasing Player");
+            // Debug.Log("Chasing Player");
             ChasePlayer();
         }
         if (playerInSightRange && playerInAttackRange)
         {
-            Debug.Log("Attacking PLayer");
+            // Debug.Log("Attacking PLayer");
             AttackPlayer();
         }
     }
