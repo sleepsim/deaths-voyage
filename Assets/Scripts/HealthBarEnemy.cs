@@ -12,6 +12,8 @@ public class HealthBarEnemy : MonoBehaviour
     public float health;
     private float lerpSpeed = 0.02f;
 
+    private Camera _cam;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,21 +22,25 @@ public class HealthBarEnemy : MonoBehaviour
 
         healthSlider.maxValue = maxHealth;
         easeHealthSlider.maxValue = maxHealth;
+
+        _cam = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
     {
         health = transform.root.GetComponentInParent<Stats>().health;
-        
-        if(healthSlider.value != health)
+
+        if (healthSlider.value != health)
         {
             healthSlider.value = health;
         }
 
-        if(healthSlider.value != easeHealthSlider.value)
+        if (healthSlider.value != easeHealthSlider.value)
         {
             easeHealthSlider.value = Mathf.Lerp(easeHealthSlider.value, health, lerpSpeed);
         }
+
+        transform.rotation = Quaternion.LookRotation(transform.position - _cam.transform.position);
     }
 }

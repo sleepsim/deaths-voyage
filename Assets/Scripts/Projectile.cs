@@ -18,7 +18,7 @@ public class Projectile : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void FireProjectile(float speed, string direction, string type)
+    public void FireProjectile(float speed, string direction)
     {
         if (direction == "right")
         {
@@ -30,20 +30,16 @@ public class Projectile : MonoBehaviour
             rb.velocity = -transform.right * speed;
         }
 
-        if (type == "player")
-        {
-            damage = GameObject.FindGameObjectWithTag("Player").GetComponent<Stats>().damage;
-        }
+    }
 
-        if (type == "enemy")
-        {
-            damage = GameObject.FindGameObjectWithTag("Enemey").GetComponent<Stats>().damage;
-        }
+    public void SetDamage(float num)
+    {
+        damage = num;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Enemy"))
+        if (!other.CompareTag("Enemy") && !other.CompareTag("Player"))
         {
             return;
         }
@@ -54,10 +50,10 @@ public class Projectile : MonoBehaviour
         if (targetStats != null)
         {
             // Deal damage to the object
-            targetStats.TakeDamage(other.gameObject, 10);
+            targetStats.TakeDamage(other.gameObject, damage);
         }
 
-        Debug.Log("hit" + other);
+        Debug.Log("hit: " + other + "for " + damage);
         // Destroy the projectile on collision
         Destroy(gameObject);
     }
