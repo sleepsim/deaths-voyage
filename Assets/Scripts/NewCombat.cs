@@ -44,6 +44,9 @@ public class NewCombat : MonoBehaviour
             GameObject leftProjectile = Instantiate(projectilePrefab, leftLaunchPosition, launchPoint.rotation);
             GameObject rightProjectile = Instantiate(projectilePrefab, rightLaunchPosition, launchPoint.rotation);
 
+            leftProjectile.GetComponent<Projectile>().SetDamage(playerStats.damage);
+            rightProjectile.GetComponent<Projectile>().SetDamage(playerStats.damage);
+
             // Access the Rigidbody component of the newly instantiated projectiles
             Rigidbody leftRigidbody = leftProjectile.GetComponent<Rigidbody>();
             Rigidbody rightRigidbody = rightProjectile.GetComponent<Rigidbody>();
@@ -62,6 +65,11 @@ public class NewCombat : MonoBehaviour
             {
                 Debug.LogWarning("Rigidbody component not found!");
             }
+
+            // Set the attacker to ignore collisions with the projectile
+            Physics.IgnoreCollision(GetComponent<Collider>(), leftProjectile.GetComponent<Collider>());
+            Physics.IgnoreCollision(GetComponent<Collider>(), rightProjectile.GetComponent<Collider>());
+
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float gravityScale = 0.5f;
     [SerializeField] private float destroyDelay = 5f;
+    private float damage;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,13 +28,18 @@ public class Projectile : MonoBehaviour
         if (direction == "left")
         {
             rb.velocity = -transform.right * speed;
-
         }
+
+    }
+
+    public void SetDamage(float num)
+    {
+        damage = num;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Enemy"))
+        if (!other.CompareTag("Enemy") && !other.CompareTag("Player"))
         {
             return;
         }
@@ -43,10 +50,10 @@ public class Projectile : MonoBehaviour
         if (targetStats != null)
         {
             // Deal damage to the object
-            targetStats.TakeDamage(other.gameObject, 10);
+            targetStats.TakeDamage(other.gameObject, damage);
         }
 
-        Debug.Log("hit" + other);
+        Debug.Log("hit: " + other + "for " + damage);
         // Destroy the projectile on collision
         Destroy(gameObject);
     }

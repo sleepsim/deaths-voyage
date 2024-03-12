@@ -20,12 +20,17 @@ public class EnemyCombat : MonoBehaviour
     public float projectileSpeed;
     public Transform launchPoint;
     public float upwardsOffset;
+    private Stats enemyStats;
 
     //States
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
     public float rotationSpeed;
 
+    private void Start()
+    {
+        enemyStats = GetComponent<Stats>();
+    }
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -85,6 +90,7 @@ public class EnemyCombat : MonoBehaviour
             Vector3 directionWithUpwardsOffset = direction + Vector3.up * upwardsOffset;
             //Attack code here
             GameObject projectile = Instantiate(projectilePrefab, launchPoint.position, launchPoint.rotation);
+            projectile.GetComponent<Projectile>().SetDamage(enemyStats.damage);
 
             Rigidbody projectileRigidbody = projectile.GetComponent<Rigidbody>();
             if (projectileRigidbody != null)
@@ -133,17 +139,17 @@ public class EnemyCombat : MonoBehaviour
 
         if (!playerInSightRange && !playerInAttackRange)
         {
-            Debug.Log("On Patrol");
+            // Debug.Log("On Patrol");
             Patrol();
         }
         if (playerInSightRange && !playerInAttackRange)
         {
-            Debug.Log("Chasing Player");
+            // Debug.Log("Chasing Player");
             ChasePlayer();
         }
         if (playerInSightRange && playerInAttackRange)
         {
-            Debug.Log("Attacking PLayer");
+            // Debug.Log("Attacking PLayer");
             AttackPlayer();
         }
     }

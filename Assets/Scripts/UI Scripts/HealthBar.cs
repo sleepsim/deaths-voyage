@@ -21,8 +21,6 @@ public class HealthBar : MonoBehaviour
 
         healthSlider.maxValue = maxHealth;
         easeHealthSlider.maxValue = maxHealth;
-
-        Debug.Log(maxHealth);
     }
 
     // Update is called once per frame

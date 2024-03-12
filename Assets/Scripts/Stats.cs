@@ -7,8 +7,6 @@ public class Stats : MonoBehaviour
     public float health;
     [SerializeField] public float maxHealth;
     public float damage;
-    public float attackSpeed;
-    public float range;
     public int projectileNumber;
 
     void Start()
