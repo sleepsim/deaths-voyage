@@ -10,6 +10,9 @@ public class NewCombat : MonoBehaviour
     public float rOffset = 1f;
     public float yOffset = 1f;
     public float upwardAngle = 30f;
+    public float timeBetweenAttacks;
+    private bool canAttack = true;
+    public float timeUntilNextAttack = 0f;
     private Stats playerStats;
     private int projectileNumber;
 
@@ -22,10 +25,27 @@ public class NewCombat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (canAttack)
         {
-            FireProjectile();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                StartCoroutine(AttackWithDelay());
+            }
         }
+        else
+        {
+            // Decrease the time until next attack
+            timeUntilNextAttack -= Time.deltaTime;
+        }
+    }
+
+    IEnumerator AttackWithDelay()
+    {
+        canAttack = false;
+        FireProjectile();
+        timeUntilNextAttack = timeBetweenAttacks;
+        yield return new WaitForSeconds(timeBetweenAttacks);
+        canAttack = true;
     }
 
     private void FireProjectile()

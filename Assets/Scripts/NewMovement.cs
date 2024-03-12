@@ -66,7 +66,7 @@ public class NewMovement : MonoBehaviour
                 // End dash
                 isDashing = false;
                 // Apply deceleration after dash ends
-                _currentVelocity = Vector3.MoveTowards(_currentVelocity, Vector3.zero, _deceleration * Time.deltaTime);
+                _currentVelocity = Vector3.MoveTowards(_currentVelocity, Vector3.zero, _deceleration * 100f * Time.deltaTime);
             }
         }
         else
