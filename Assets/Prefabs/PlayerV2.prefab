@@ -140,7 +140,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 3.5386457, y: 3.52, z: 7.883471}
-  m_Center: {x: 0, y: 1.64, z: 0}
+  m_Center: {x: 0, y: 1.55, z: 0}
 --- !u!54 &3920147138494328415
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -149,7 +149,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7770101353304551748}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 1000
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}

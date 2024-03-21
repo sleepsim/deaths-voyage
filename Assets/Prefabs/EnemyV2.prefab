@@ -2993,8 +2993,8 @@ MonoBehaviour:
   projectileSpeed: 30
   launchPoint: {fileID: 1890529020903301040}
   upwardsOffset: 5.5
-  sightRange: 35
-  attackRange: 25
+  sightRange: 30
+  attackRange: 15
   playerInSightRange: 0
   playerInAttackRange: 0
   rotationSpeed: 0
