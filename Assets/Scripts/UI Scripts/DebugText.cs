@@ -19,7 +19,7 @@ public class DebugText : MonoBehaviour
 
         isDashingText.text = "Is Dashing: " + player.GetComponent<NewMovement>().isDashing.ToString();
         dashTimerText.text = "Dash Timer: " + player.GetComponent<NewMovement>().dashTimer.ToString();
-        dashCooldownText.text = "Dash Cooldown: " + player.GetComponent<NewMovement>().dashCooldownTimer.ToString();
+        dashCooldownText.text = "Ammo: " + player.GetComponent<NewCombat>().currentAmmo.ToString();
         currSpeed.text = "Current Speed: " + player.GetComponent<NewMovement>()._currentVelocity.ToString();
 
         if (player.GetComponent<NewMovement>().dashCooldownTimer <= 0)

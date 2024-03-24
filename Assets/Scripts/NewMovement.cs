@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,20 +54,21 @@ public class NewMovement : MonoBehaviour
         dashCooldownTimer = _dashCooldown;
 
         // Apply a sudden burst of speed in the current direction
-        _currentVelocity = transform.forward * _dashSpeed;
+        _rb.velocity = transform.forward * _dashSpeed;
     }
 
     private void UpdateDash()
     {
         if (isDashing)
         {
+
             dashTimer -= Time.deltaTime;
             if (dashTimer <= 0)
             {
                 // End dash
                 isDashing = false;
                 // Apply deceleration after dash ends
-                _currentVelocity = Vector3.MoveTowards(_currentVelocity, Vector3.zero, _deceleration * 100f * Time.deltaTime);
+                // _currentVelocity = Vector3.MoveTowards(_currentVelocity, Vector3.zero, _deceleration * 100f * Time.deltaTime);
             }
         }
         else
@@ -75,6 +77,10 @@ public class NewMovement : MonoBehaviour
             {
                 dashCooldownTimer -= Time.deltaTime;
             }
+            // if (_currentVelocity.magnitude > _speed)
+            // {
+            //     _currentVelocity = Vector3.MoveTowards(_currentVelocity, Vector3.zero, _deceleration * 100f * Time.deltaTime);
+            // }
         }
     }
 
@@ -91,7 +97,7 @@ public class NewMovement : MonoBehaviour
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (verticalInput != 0)
+        if (verticalInput != 0 || horizontalInput != 0)
         {
             // Get input relative to the boat's forward direction
             Vector3 boatForward = transform.forward;
