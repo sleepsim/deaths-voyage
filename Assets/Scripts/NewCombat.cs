@@ -127,8 +127,6 @@ public class NewCombat : MonoBehaviour
             // Calculate the launch position for this projectile
             Vector3 rhorizontalOffset = launchPoint.right * rOffset;
             Vector3 lhorizontalOffset = -launchPoint.right * rOffset;
-            Debug.Log("right " + rhorizontalOffset);
-            Debug.Log("left" + lhorizontalOffset);
             Vector3 verticalOffset = transform.up * yOffset;
             Vector3 forwardOffset = transform.forward;
             Vector3 rlaunchPosition = launchPoint.position + rhorizontalOffset + verticalOffset + forwardOffset;

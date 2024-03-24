@@ -22,8 +22,11 @@ public class Stats : MonoBehaviour
 
         if (target.GetComponent<Stats>().health <= 0)
         {
-            upgradeUI.SetActive(true);
-            upgradeUIScript.SetActive(true);
+            if (gameObject.CompareTag("Enemy"))
+            {
+                upgradeUI.SetActive(true);
+                upgradeUIScript.SetActive(true);
+            }
             Destroy(target.gameObject);
         }
     }
