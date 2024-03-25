@@ -2993,7 +2993,7 @@ MonoBehaviour:
   projectileSpeed: 30
   launchPoint: {fileID: 1890529020903301040}
   upwardsOffset: 5.5
-  sightRange: 30
+  sightRange: 45
   attackRange: 15
   playerInSightRange: 0
   playerInAttackRange: 0
@@ -3014,6 +3014,8 @@ MonoBehaviour:
   maxHealth: 100
   damage: 5
   projectileNumber: 0
+  upgradeUI: {fileID: 0}
+  upgradeUIScript: {fileID: 0}
 --- !u!1 &7858172638527866987
 GameObject:
   m_ObjectHideFlags: 0

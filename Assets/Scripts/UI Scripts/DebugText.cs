@@ -17,19 +17,21 @@ public class DebugText : MonoBehaviour
     {
         // Toggle the boolean and update the text
 
-        isDashingText.text = "Is Dashing: " + player.GetComponent<NewMovement>().isDashing.ToString();
-        dashTimerText.text = "Dash Timer: " + player.GetComponent<NewMovement>().dashTimer.ToString();
-        dashCooldownText.text = "Ammo: " + player.GetComponent<NewCombat>().currentAmmo.ToString();
-        currSpeed.text = "Current Speed: " + player.GetComponent<NewMovement>()._currentVelocity.ToString();
+        // isDashingText.text = "Is Dashing: " + player.GetComponent<NewMovement>().isDashing.ToString();
+        // dashTimerText.text = "Dash Timer: " + player.GetComponent<NewMovement>().dashTimer.ToString();
+        dashCooldownText.text = "Ammo: " + player.GetComponent<NewCombat>().timeUntilAmmoRefill.ToString();
 
-        if (player.GetComponent<NewMovement>().dashCooldownTimer <= 0)
-        {
-            textMesh.text = "Dash: Ready";
-        }
-        else
-        {
-            textMesh.text = "Dash: Not Ready";
-        }
+        // currSpeed.text = "Current Speed: " + player.GetComponent<NewMovement>()._currentVelocity.ToString();
+
+        // if (player.GetComponent<NewMovement>().dashCooldownTimer <= 0)
+        // {
+        //     textMesh.text = "Dash: Ready";
+        // }
+        // else
+        // {
+        //     textMesh.text = "Dash: Not Ready";
+        // }
+
 
 
     }

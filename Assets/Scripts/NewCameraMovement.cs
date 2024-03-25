@@ -11,10 +11,10 @@ public class NewCameraMovement : MonoBehaviour
     void Start()
     {
         // cinemachineFreeLook = GetComponent<CinemachineFreeLook>();
-        // Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         HandleCamera();
     }
@@ -29,7 +29,7 @@ public class NewCameraMovement : MonoBehaviour
         else
         {
             allowRotation = false; // Disable rotation
-            Cursor.visible = true;
+            Cursor.visible = false;
         }
 
         if (allowRotation)

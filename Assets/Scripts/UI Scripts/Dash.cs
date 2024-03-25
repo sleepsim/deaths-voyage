@@ -21,13 +21,13 @@ public class Dash : MonoBehaviour
     void Update()
     {
         // Get the dashCooldownTimer value from the player's NewMovement component
-        float dashCooldownTimer = GameObject.FindGameObjectWithTag("Player").GetComponent<NewMovement>().dashCooldownTimer;
-        float normalizedValue = Mathf.Clamp01((dashCooldownTimer - minVal) / (maxVal - minVal));
-        // Update the value of the dashSlider directly
-        dashSlider.value = 1f - normalizedValue;
+        // float dashCooldownTimer = GameObject.FindGameObjectWithTag("Player").GetComponent<NewMovement>().dashCooldownTimer;
+        // float normalizedValue = Mathf.Clamp01((dashCooldownTimer - minVal) / (maxVal - minVal));
+        // // Update the value of the dashSlider directly
+        // dashSlider.value = 1f - normalizedValue;
 
-        // Smooothen
-        dashSlider.value = Mathf.Lerp(dashSlider.value, normalizedValue, lerpSpeed);
+        // // Smooothen
+        // dashSlider.value = Mathf.Lerp(dashSlider.value, normalizedValue, lerpSpeed);
     }
 
 

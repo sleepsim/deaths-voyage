@@ -30,5 +30,7 @@ public class Stats : MonoBehaviour
             Destroy(target.gameObject);
         }
     }
+
+
 }
 

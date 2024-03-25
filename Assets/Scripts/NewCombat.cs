@@ -8,28 +8,37 @@ public class NewCombat : MonoBehaviour
     public Transform launchPoint;
 
     // Projectile Physics
+    [Header("Projectile")]
     public float launchSpeed = 50f;
     public float rOffset = 1f;
     public float yOffset = 1f;
     public float upwardAngle = 30f;
+    public float coneAngle = 30;
+
+    [Header("Player")]
     public float timeBetweenAttacks;
     private bool canAttack = true;
     public float timeUntilNextAttack = 0f;
     private Stats playerStats;
     private int projectileNumber;
-    public float coneAngle = 30;
 
-    // Ammo 
+
+    // Ammo
+    [Header("Ammo")]
     public int maxAmmo = 10;
     public int currentAmmo;
     public float ammoIncreaseInterval = 10f;
     public float ammoIncreaseTimer = 0;
+    private bool ammoCoroutineActive = false;
+    public float timeUntilAmmoRefill = 0;
 
 
     void Start()
     {
         playerStats = GetComponent<Stats>();
         currentAmmo = maxAmmo;
+        StartCoroutine(RegenerateAmmo());
+        timeUntilAmmoRefill = ammoIncreaseInterval;
     }
     // Update is called once per frame
     void Update()
@@ -37,7 +46,10 @@ public class NewCombat : MonoBehaviour
         // Update the number of projectiles
         projectileNumber = playerStats.projectileNumber;
 
-
+        if (currentAmmo < maxAmmo)
+        {
+            timeUntilAmmoRefill -= Time.deltaTime;
+        }
 
         if (canAttack && currentAmmo > 0)
         {
@@ -158,6 +170,19 @@ public class NewCombat : MonoBehaviour
             // Set the attacker to ignore collisions with the projectile
             Physics.IgnoreCollision(GetComponent<Collider>(), rNewProjectile.GetComponent<Collider>());
             Physics.IgnoreCollision(GetComponent<Collider>(), lNewProjectile.GetComponent<Collider>());
+        }
+    }
+
+    IEnumerator RegenerateAmmo()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(ammoIncreaseInterval);
+            timeUntilAmmoRefill = ammoIncreaseInterval;
+            if (currentAmmo < maxAmmo)
+            {
+                currentAmmo++;
+            }
         }
     }
 
