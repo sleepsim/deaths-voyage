@@ -103,7 +103,7 @@ public class UpgradeController : MonoBehaviour
 
         if (type == "increaseSpeed")
         {
-            // player.GetComponent<NewMovement>()._speed += 10;
+            // player.GetComponent<NewMovement>().moveSpeed += 10;
         }
 
         if (type == "addProjectile")

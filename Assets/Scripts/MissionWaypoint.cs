@@ -11,6 +11,7 @@ public class MissionWaypoint : MonoBehaviour
 {
     public UnityEngine.UI.Image img;
     public Transform target;
+    public Vector3 offset;
     public TextMeshProUGUI meter;
 
     // Start is called before the first frame update
@@ -28,7 +29,7 @@ public class MissionWaypoint : MonoBehaviour
         float minY = img.GetPixelAdjustedRect().height / 2;
         float maxY = Screen.height - minY;
 
-        Vector2 pos = Camera.main.WorldToScreenPoint(target.position);
+        Vector2 pos = Camera.main.WorldToScreenPoint(target.position + offset);
 
         if (Vector3.Dot((target.position - transform.position), transform.forward) < 0)
         {
@@ -48,6 +49,7 @@ public class MissionWaypoint : MonoBehaviour
 
         img.transform.position = pos;
         meter.text = ((int)Vector3.Distance(target.position, transform.position)).ToString() + "m";
-
     }
+
+
 }
