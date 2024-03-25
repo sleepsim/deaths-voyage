@@ -162,7 +162,6 @@ public class NewMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         originalMoveSpeed = moveSpeed;
     }
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing)
