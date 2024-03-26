@@ -183,8 +183,6 @@ MonoBehaviour:
   maxHealth: 100
   damage: 10
   projectileNumber: 2
-  upgradeUI: {fileID: 0}
-  upgradeUIScript: {fileID: 0}
 --- !u!114 &8156346980945788361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,9 +205,9 @@ MonoBehaviour:
   coneAngle: 10
   timeBetweenAttacks: 0.5
   timeUntilNextAttack: 0
-  maxAmmo: 100
+  maxAmmo: 5
   currentAmmo: 0
-  ammoIncreaseInterval: 10
+  ammoIncreaseInterval: 3
   ammoIncreaseTimer: 0
   timeUntilAmmoRefill: 0
 --- !u!114 &4476005954590794669
@@ -228,6 +226,10 @@ MonoBehaviour:
   rotationSpeed: 2
   dashSpeedMultiplier: 6
   dashDuration: 0.3
+  maxDash: 3
+  currentDash: 0
+  dashIncreaseInterval: 3
+  timeUntilDashRefill: 0
 --- !u!4 &7700572590018745058 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b9e3b9892a81fb04c830398fdd09b2ae,

@@ -5,25 +5,19 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/Alpha/1_MainMenu.unity
-    guid: a3a8c854993a73d42ac9223bbf386e37
+    path: Assets/Scenes/Beta/1_MainMenu.unity
+    guid: a303b1556af704543931de4718338140
   - enabled: 1
-    path: Assets/Scenes/Alpha/2_Level_1.unity
-    guid: a905dd65ea7993842bb6136672b58204
+    path: Assets/Scenes/Beta/2_Intro.unity
+    guid: 34db6aefd2c93664984e927be7bddde5
   - enabled: 1
-    path: Assets/Scenes/Alpha/3_Level_2.unity
-    guid: 5a93394141644924f97bcb8da007cf56
+    path: Assets/Scenes/Beta/3_StageOne.unity
+    guid: e3d0308f4c3ca954da056f0a5e7bcbb0
   - enabled: 1
-    path: Assets/Scenes/Alpha/4_Level_3.unity
-    guid: 905bffb9b9ea8b04d99c44dd97af0c62
+    path: Assets/Scenes/Beta/4_StageTwo.unity
+    guid: 696cce37012bdd74380e882502d11468
   - enabled: 1
-    path: Assets/Scenes/Alpha/4_Options.unity
-    guid: 6716567280b579044a589751fadf317b
-  - enabled: 1
-    path: Assets/Scenes/Alpha/5_FinalScreen.unity
-    guid: 075f6ed9186e61a419100ef3cc5fced8
+    path: Assets/Scenes/Beta/5_End.unity
+    guid: 50a9cc51c4e69364c917d4a8139c95b7
   m_configObjects: {}

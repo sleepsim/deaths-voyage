@@ -121,7 +121,7 @@ Material:
     - _ZWrite: 1
     - height: -0.03
     - heightoffset: -2.92
-    - scale: 0.3
+    - scale: 0.49
     - sin_freq: 9.72
     m_Colors:
     - Color_07d66dbf459a427290c7b0403283d67f: {r: 1, g: 1, b: 1, a: 1}

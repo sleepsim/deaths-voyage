@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnableQuest : MonoBehaviour
 {
@@ -20,6 +22,7 @@ public class EnableQuest : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+
         // Complete current quest then activate next one to avoid null error
         questController.GetComponent<QuestController>().completeCurrentQuest();
         questController.GetComponent<QuestController>().activateQuest();

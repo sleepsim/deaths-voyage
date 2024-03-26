@@ -16,7 +16,7 @@ public class UpgradeController : MonoBehaviour
     TextMeshProUGUI op1Text;
     TextMeshProUGUI op2Text;
     TextMeshProUGUI op3Text;
-    private string[] options = new string[] { "addProjectile", "increaseDmg", "increaseAmmo", "increaseSpeed" };
+    private string[] options = new string[] { "addProjectile", "increaseDmg", "increaseAmmo" }; // Removed "increaseSpeed"  for now
     private string option1, option2, option3;
 
 
@@ -86,24 +86,35 @@ public class UpgradeController : MonoBehaviour
     private void GenerateChoices()
     {
         option1 = options[UnityEngine.Random.Range(0, options.Length)];
+
         option2 = options[UnityEngine.Random.Range(0, options.Length)];
+        if (option2 == option1)
+        {
+            option2 = options[UnityEngine.Random.Range(0, options.Length)];
+        }
+
         option3 = options[UnityEngine.Random.Range(0, options.Length)];
+        if (option3 == option1 || option3 == option2)
+        {
+            option3 = options[UnityEngine.Random.Range(0, options.Length)];
+
+        }
     }
     private void ActivateUpgrade(string type)
     {
         if (type == "increaseAmmo")
         {
-            player.GetComponent<NewCombat>().maxAmmo += 2;
+            player.GetComponent<NewCombat>().maxAmmo += 3;
         }
 
         if (type == "increaseDmg")
         {
-            player.GetComponent<Stats>().damage += 3;
+            player.GetComponent<Stats>().damage += 1;
         }
 
         if (type == "increaseSpeed")
         {
-            // player.GetComponent<NewMovement>().moveSpeed += 10;
+            player.GetComponent<NewMovement>().moveSpeed += 10;
         }
 
         if (type == "addProjectile")
