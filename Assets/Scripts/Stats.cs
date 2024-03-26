@@ -8,8 +8,6 @@ public class Stats : MonoBehaviour
     [SerializeField] public float maxHealth;
     public float damage;
     public int projectileNumber;
-    [SerializeField] GameObject upgradeUI;
-    [SerializeField] GameObject upgradeUIScript;
 
     void Start()
     {
@@ -24,10 +22,9 @@ public class Stats : MonoBehaviour
         {
             if (gameObject.CompareTag("Enemy"))
             {
-                upgradeUI.SetActive(true);
-                upgradeUIScript.SetActive(true);
+
             }
-            Destroy(target.gameObject);
+            // Destroy(target.gameObject);
         }
     }
 

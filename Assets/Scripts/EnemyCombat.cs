@@ -20,7 +20,7 @@ public class EnemyCombat : MonoBehaviour
     public float projectileSpeed;
     public Transform launchPoint;
     public float upwardsOffset;
-    private Stats enemyStats;
+    private StatsEnemy enemyStats;
 
     //States
     public float sightRange, attackRange;
@@ -29,7 +29,7 @@ public class EnemyCombat : MonoBehaviour
 
     private void Start()
     {
-        enemyStats = GetComponent<Stats>();
+        enemyStats = GetComponent<StatsEnemy>();
     }
     private void Awake()
     {

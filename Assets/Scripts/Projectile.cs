@@ -43,16 +43,28 @@ public class Projectile : MonoBehaviour
             return;
         }
         // Get the Stats component of the object collided with
-        Stats targetStats = other.gameObject.GetComponent<Stats>();
-
-        // Check if the object has Stats component
-        if (targetStats != null)
+        if (other.CompareTag("Enemy"))
         {
-            // Deal damage to the object
-            targetStats.TakeDamage(other.gameObject, damage);
+            StatsEnemy targetStats = other.gameObject.GetComponent<StatsEnemy>();
+            // Check if the object has Stats component
+            if (targetStats != null)
+            {
+                // Deal damage to the object
+                targetStats.TakeDamage(other.gameObject, damage);
+            }
+        }
+        else
+        {
+            Stats targetStats = other.gameObject.GetComponent<Stats>();
+            // Check if the object has Stats component
+            if (targetStats != null)
+            {
+                // Deal damage to the object
+                targetStats.TakeDamage(other.gameObject, damage);
+            }
         }
 
-        Debug.Log("hit: " + other + "for " + damage);
+        // Debug.Log("hit: " + other + "for " + damage);
         // Destroy the projectile on collision
         Destroy(gameObject);
     }

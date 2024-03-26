@@ -2866,7 +2866,7 @@ GameObject:
   - component: {fileID: 8213347492198896151}
   - component: {fileID: 7649062987144350532}
   - component: {fileID: 712923877443102652}
-  - component: {fileID: 2263698026903680030}
+  - component: {fileID: 5019851681934657478}
   m_Layer: 0
   m_Name: EnemyV2
   m_TagString: Enemy
@@ -2941,8 +2941,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 9, y: 8, z: 34}
-  m_Center: {x: 0, y: 1.7, z: 0}
+  m_Size: {x: 9, y: 13.29, z: 34}
+  m_Center: {x: 0, y: 6, z: 0}
 --- !u!195 &7649062987144350532
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2953,7 +2953,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 10
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -2993,12 +2993,12 @@ MonoBehaviour:
   projectileSpeed: 30
   launchPoint: {fileID: 1890529020903301040}
   upwardsOffset: 5.5
-  sightRange: 45
+  sightRange: 55
   attackRange: 15
   playerInSightRange: 0
   playerInAttackRange: 0
   rotationSpeed: 0
---- !u!114 &2263698026903680030
+--- !u!114 &5019851681934657478
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3007,15 +3007,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 7779671814640499008}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97141de4810f9ee408f36fab5892c904, type: 3}
+  m_Script: {fileID: 11500000, guid: 4056e4ee31b93ea4ca0152f5a2f1f1de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  maxHealth: 100
+  maxHealth: 30
   damage: 5
   projectileNumber: 0
   upgradeUI: {fileID: 0}
   upgradeUIScript: {fileID: 0}
+  questController: {fileID: 0}
 --- !u!1 &7858172638527866987
 GameObject:
   m_ObjectHideFlags: 0
