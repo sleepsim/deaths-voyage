@@ -144,6 +144,7 @@
 
 
 using System.Collections;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class NewMovement : MonoBehaviour
@@ -157,16 +158,30 @@ public class NewMovement : MonoBehaviour
     private bool isDashing = false;
     private float originalMoveSpeed;
 
+    [Header("Dash")]
+    public int maxDash = 3;
+    public int currentDash;
+    public float dashIncreaseInterval = 3f;
+    public float timeUntilDashRefill = 0;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         originalMoveSpeed = moveSpeed;
+        StartCoroutine(RegenerateDash());
+        currentDash = maxDash;
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing && currentDash > 0)
         {
             StartCoroutine(Dash());
+            currentDash--;
+        }
+
+        if (currentDash < maxDash)
+        {
+            timeUntilDashRefill -= Time.deltaTime;
         }
     }
 
@@ -193,5 +208,24 @@ public class NewMovement : MonoBehaviour
         yield return new WaitForSeconds(dashDuration);
         moveSpeed = originalMoveSpeed; // Reset move speed after dash
         isDashing = false;
+
+        //Add ammo everytime u dash
+        if (GetComponent<NewCombat>().currentAmmo < GetComponent<NewCombat>().maxAmmo)
+        {
+            GetComponent<NewCombat>().currentAmmo += 1;
+        }
+    }
+
+    IEnumerator RegenerateDash()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(dashIncreaseInterval);
+            timeUntilDashRefill = dashIncreaseInterval;
+            if (currentDash < maxDash)
+            {
+                currentDash++;
+            }
+        }
     }
 }

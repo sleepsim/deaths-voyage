@@ -104,7 +104,6 @@ public class QuestController : MonoBehaviour
 
     public void completeCurrentQuest()
     {
-        Debug.Log("QUest complte moving to ->" + currQuest + 1);
         currQuest += 1;
     }
 
