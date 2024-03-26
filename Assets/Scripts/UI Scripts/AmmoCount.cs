@@ -10,7 +10,6 @@ public class AmmoCount : MonoBehaviour
     public Slider refillSlider;
     public float timerInterval;
     public float currentTimer;
-    private float lerpSpeed = 0.02f;
     public GameObject player;
     // Update is called once per frame
     void Start()
@@ -27,7 +26,6 @@ public class AmmoCount : MonoBehaviour
         // Hide slider if ammo full
         if (timerInterval == currentTimer)
         {
-            Debug.Log("yup they equal");
             refillSlider.gameObject.SetActive(false);
         }
         else if (currentTimer < timerInterval)

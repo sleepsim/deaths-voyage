@@ -7,7 +7,6 @@ public class Projectile : MonoBehaviour
 {
 
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private float gravityScale = 0.5f;
     [SerializeField] private float destroyDelay = 5f;
     private float damage;
     // Start is called before the first frame update

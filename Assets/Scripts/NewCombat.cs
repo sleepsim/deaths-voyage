@@ -29,7 +29,6 @@ public class NewCombat : MonoBehaviour
     public int currentAmmo;
     public float ammoIncreaseInterval = 10f;
     public float ammoIncreaseTimer = 0;
-    private bool ammoCoroutineActive = false;
     public float timeUntilAmmoRefill = 0;
 
 

@@ -13,6 +13,7 @@ public class MissionWaypoint : MonoBehaviour
     public Transform target;
     public Vector3 offset;
     public TextMeshProUGUI meter;
+    public Transform player;
 
     // Start is called before the first frame update
     void Start()
@@ -46,9 +47,8 @@ public class MissionWaypoint : MonoBehaviour
         pos.x = Mathf.Clamp(pos.x, minX, maxX);
         pos.y = Mathf.Clamp(pos.y, minY, maxY);
 
-
         img.transform.position = pos;
-        meter.text = ((int)Vector3.Distance(target.position, transform.position)).ToString() + "m";
+        meter.text = ((int)Vector3.Distance(target.position, player.transform.position)).ToString() + "m";
     }
 
 

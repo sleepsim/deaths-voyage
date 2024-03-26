@@ -17,8 +17,8 @@ public class HealthBarEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxHealth = transform.root.GetComponent<Stats>().maxHealth;
-        health = transform.root.GetComponentInParent<Stats>().health;
+        maxHealth = transform.parent.GetComponent<Stats>().maxHealth;
+        health = transform.parent.GetComponent<Stats>().health;
 
         healthSlider.maxValue = maxHealth;
         easeHealthSlider.maxValue = maxHealth;
@@ -29,7 +29,7 @@ public class HealthBarEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        health = transform.root.GetComponentInParent<Stats>().health;
+        health = transform.parent.GetComponent<Stats>().health;
 
         if (healthSlider.value != health)
         {
